@@ -7,7 +7,7 @@ angular.module("com.2fdevs.videogular.plugins.controls", [])
 				restrict: "E",
 				require: "^videogular",
 				transclude: true,
-				templateUrl: "views/videogular/plugins/controls/controls.html",
+				templateUrl: "/application/js/views/videogular/plugins/controls/controls.html",
 				scope: {
 					autoHide: "=vgAutohide",
 					autoHideTime: "=vgAutohideTime"
@@ -87,7 +87,7 @@ angular.module("com.2fdevs.videogular.plugins.controls", [])
 			return {
 				restrict: "E",
 				require: "^videogular",
-				templateUrl: "views/videogular/plugins/controls/play-pause-button.html",
+				templateUrl: "/application/js/views/videogular/plugins/controls/play-pause-button.html",
 				scope: {
 					vgPlayIcon: "=",
 					vgPauseIcon: "="
@@ -346,7 +346,7 @@ angular.module("com.2fdevs.videogular.plugins.controls", [])
 			return {
 				restrict: "E",
 				require: "^videogular",
-				templateUrl: "views/videogular/plugins/controls/volume-bar.html",
+				templateUrl: "/application/js/views/videogular/plugins/controls/volume-bar.html",
 				link: function(scope, elem, attr, API) {
 					var isChangingVolume = false;
 					var volumeBackElem = angular.element(elem[0].getElementsByClassName("volumeBackground"));
@@ -435,7 +435,7 @@ angular.module("com.2fdevs.videogular.plugins.controls", [])
 					$scope.volumeLevel3Icon = $.parseHTML($scope.vgVolumeLevel3Icon)[0].data;
 					$scope.currentIcon = $scope.volumeLevel3Icon;
 				},
-				templateUrl: "views/videogular/plugins/controls/mute-button.html",
+				templateUrl: "/application/js/views/videogular/plugins/controls/mute-button.html",
 				link: function(scope, elem, attr, API) {
 					function onClickMute(event) {
 						if (scope.currentIcon == scope.muteIcon) {
@@ -510,7 +510,7 @@ angular.module("com.2fdevs.videogular.plugins.controls", [])
 					$scope.exitFullScreenIcon = $.parseHTML($scope.vgExitFullScreenIcon)[0].data;
 					$scope.currentIcon = $scope.enterFullScreenIcon;
 				},
-				templateUrl: "views/videogular/plugins/controls/full-screen-button.html",
+				templateUrl: "/application/js/views/videogular/plugins/controls/full-screen-button.html",
 				link: function(scope, elem, attr, API) {
 					function onEnterFullScreen() {
 						scope.fullscreenIcon = scope.exitFullScreenIcon;

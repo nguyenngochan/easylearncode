@@ -15,7 +15,7 @@ angular.module("info.vietnamcode.nampnq.videogular.plugins.quiz", ['nampnq.util.
                 return {
                     restrict: "E",
                     require: "^videogular",
-                    templateUrl: "views/videogular/plugins/quiz/quiz.html",
+                    templateUrl: "/application/js/views/videogular/plugins/quiz/quiz.html",
                     scope: {
                         vgData: "=",
                         vgQuizSubmit: '&',

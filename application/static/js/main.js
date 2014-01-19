@@ -57,7 +57,7 @@
     angular.module("easylearncode.contest", ["ui.bootstrap", "ui.ace", "easylearncode.core"]);
     angular.module("easylearncode.home", ["ui.bootstrap", "easylearncode.core"]);
     angular.module("easylearncode.game", ["easylearncode.core"]);
-    angular.module("easylearncode.learn", ["ui.bootstrap", "ui.ace", "easylearncode.core"]);
+    angular.module("easylearncode.learn", ["ui.bootstrap", "ui.ace", "easylearncode.core", "com.2fdevs.videogular", "com.2fdevs.videogular.plugins.controls", "com.2fdevs.videogular.plugins.overlayplay", "com.2fdevs.videogular.plugins.buffering", "com.2fdevs.videogular.plugins.poster", "info.vietnamcode.nampnq.videogular.plugins.youtube", "info.vietnamcode.nampnq.videogular.plugins.quiz"]);
     angular.module("easylearncode.info", ["ui.bootstrap", "easylearncode.core", "ngAnimate"]);
     angular.module("easylearncode.contest_result", ["easylearncode.core"]);
     angular.module("easylearncode.core").config(["$locationProvider",
@@ -373,8 +373,7 @@ angular.module("easylearncode.home").controller('HomeCarouselCtrl', ['$scope', f
     ];
 }]);
 
-angular.module("easylearncode.learn").run(function () {
-}).controller('LearnCtrl', ['$scope', function ($scope) {
+angular.module("easylearncode.learn").controller('LearnCtrl', ['$scope', function ($scope) {
         $scope.lang =
         {
             name: 'Python',
@@ -382,8 +381,8 @@ angular.module("easylearncode.learn").run(function () {
             lang: 'PYTHON',
             source: "'''\n# Read input from stdin and provide input before running code\n\nname = raw_input('What is your name?\\n')\nprint 'Hi, %s.' % name\n'''\nprint 'Hello World!'\n"
         };
-        $scope.video = videojs('video-content', {"techOrder": ["youtube"], "src": "https://www.youtube.com/watch?v=vfzfwPo6MZ4", "ytcontrols": true  }).ready(function () {
-        });
+//        $scope.video = videojs('video-content', {"techOrder": ["youtube"], "src": "https://www.youtube.com/watch?v=vfzfwPo6MZ4", "ytcontrols": true  }).ready(function () {
+//        });
 
         var codes = [
             {
@@ -433,33 +432,32 @@ angular.module("easylearncode.learn").run(function () {
             }
         ];
 
-        $scope.videoQuestion = videojs("video-content");
-        $scope.videoQuestion.imageOverlay({
-            image_url: "http://assets0.ordienetworks.com/misc/JimCarreyEyebrow.jpg",
-            click_url: "https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewAlbum?id=624854547",
-            opacity: 0.5,
-            start_time: 10,
-            end_time: 20
-        });
+//        $scope.videoQuestion = videojs("video-content");
+//        $scope.videoQuestion.imageOverlay({
+//            image_url: "http://assets0.ordienetworks.com/misc/JimCarreyEyebrow.jpg",
+//            click_url: "https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewAlbum?id=624854547",
+//            opacity: 0.5,
+//            start_time: 10,
+//            end_time: 20
+//        });
         $scope.btnOk = function () {
             hideQuestion();
             alert('Chào các bạn');
         }
 
 
-        var i = 0;
-        $scope.video.on('timeupdate', function (e) {
-
-            times = $scope.video.currentTime();
-            angular.forEach(codes, function (code) {
-                if (code.time <= times) {
-                    $scope.$apply(function () {
-                        $scope.code = code.code;
-                        $scope.code = showQuestion();
-                    });
-                }
-            });
-        });
+//        var i = 0;
+//        $scope.video.on('timeupdate', function (e) {//
+//            times = $scope.video.currentTime();
+//            angular.forEach(codes, function (code) {
+//                if (code.time <= times) {
+//                    $scope.$apply(function () {
+//                        $scope.code = code.code;
+//                        $scope.code = showQuestion();
+//                    });
+//                }
+//            });
+//        });
         $scope.inputCallback = function (callback) {
             $scope.jqconsole.Input(function (result) {
                 var e;
@@ -485,57 +483,6 @@ angular.module("easylearncode.learn").run(function () {
 
         $scope.resultCallback = function (result) {
             console.log(result);
-            /*) var code, error_msg, isSuccess, output, resultObj, result_val, _ref;
-             if (result && typeof result === 'object') {
-             resultObj = result;
-             result_val = resultObj.result;
-             code = resultObj.code;
-             output = resultObj.output;
-             if (result_val) {
-             if (result_val[-1] !== '\n') {
-             result = result_val + '\n';
-             }
-             } else {
-             result = '';
-             }
-             error_msg = null;
-             isSuccess = false;
-             if (resultObj.type === 'evalSolution') {
-             if (result_val === 'true' || result_val === 'True') {
-             isSuccess = true;
-             } else if (result_val !== 'false' && result_val !== 'False') {
-             error_msg = result_val;
-             }
-             if (isSuccess) {
-             //                    $scope.get_current_project().index += 1;
-             //                    $scope.jqconsole.Write($scope.get_current_checkpoint().entry_html + $scope.get_current_checkpoint().instruction_html, 'log', false);
-             //                    $scope.startPrompt();
-             //return this.ShowCongratulations();
-             } else {
-             //this.exercises_fail_detail[this.Exercises[this.Exercises.CurrentLang][this.Exercises.CurrentExercise].ExerciseID] += 1;
-             //return this.ShowRetryAnswerPrompt(msg);
-             //                    $scope.jqconsole.Write('<span style="color: crimson">Oops, Hãy thử lại!.<br><span style="color: #F80">' + utf8_decode(result_val) + '</span></span>', 'log', false);
-             //                    $scope.startPrompt();
-             }
-             } else if (resultObj.type === 'evalUser') {
-             if(result){
-             alert(result);
-             }
-             result = result_val;
-             if (!result) {
-             result = '';
-             }
-             if (!code) {
-             code = '';
-             }
-             if (!output) {
-             output = '';
-             }
-
-             }
-             } else if (result) {
-             alert(result);
-             }*/
         };
         $scope.jsrepl = new JSREPL({
             input: $scope.inputCallback,
@@ -562,14 +509,109 @@ angular.module("easylearncode.learn").run(function () {
             });
         };
 
-        $scope.reSet = function () {
-            $scope.code = "";
-        };
-
         $scope.jsrepl.loadLanguage("python", function () {
         });
+        $scope.currentTime = 0;
+        $scope.totalTime = 0;
+        $scope.state = null;
+        $scope.volume = 1;
+        $scope.isCompleted = false;
+        $scope.API = null;
 
+        $scope.onPlayerReady = function(API) {
+            $scope.API = API;
+        };
 
+        $scope.onCompleteVideo = function() {
+            $scope.isCompleted = true;
+        };
+
+        $scope.onUpdateState = function(state) {
+            $scope.state = state;
+        };
+
+        $scope.onUpdateTime = function(currentTime, totalTime) {
+            $scope.currentTime = currentTime;
+            $scope.totalTime = totalTime;
+            angular.forEach(codes, function (code) {
+                if (code.time <= currentTime) {
+                    $scope.$apply(function () {
+                        $scope.code = code.code;
+                    });
+                }
+            });
+        };
+
+        $scope.onUpdateVolume = function(newVol) {
+            $scope.volume = newVol;
+        };
+
+        $scope.onUpdateSize = function(width, height) {
+            $scope.config.width = width;
+            $scope.config.height = height;
+        };
+
+        $scope.onQuizSubmit = function(data) {
+            return {
+                result:true,
+                description:"Correct"
+            }
+        }
+
+        $scope.stretchModes = [{
+            label: "None",
+            value: "none"
+        }, {
+            label: "Fit",
+            value: "fit"
+        }, {
+            label: "Fill",
+            value: "fill"
+        }];
+
+        $scope.config = {
+            width: 700,
+            height: 380,
+            autoHide: false,
+            autoHideTime: 3000,
+            autoPlay: false,
+            responsive: false,
+            stretch: $scope.stretchModes[1],
+            theme: {
+                url: "application/css/learn/videogular.css",
+                playIcon: "&#xe000;",
+                pauseIcon: "&#xe001;",
+                volumeLevel3Icon: "&#xe002;",
+                volumeLevel2Icon: "&#xe003;",
+                volumeLevel1Icon: "&#xe004;",
+                volumeLevel0Icon: "&#xe005;",
+                muteIcon: "&#xe006;",
+                enterFullScreenIcon: "&#xe007;",
+                exitFullScreenIcon: "&#xe008;"
+            },
+            plugins: {
+                poster: {
+                    url: "application/img/videogular.png"
+                },
+                quiz: {
+                    data: [{
+                        "time": "164",
+                        "question_id": "70d70be689d73e08687496a6d12b2b0d",
+                        "html": "<div style=\"position:absolute;\">Select the restaurant(s) that serve Canadian cuisine for a price of $$$.\n\n<small>\n<pre>Georgie Porgie\n87%\n$$$\nCanadian,Pub Food\n\nSilver Spoon\n97%\n$$$$\nCanadian\n\nCoffee Cafe\n77%\n$$\nCoffee/Tea,Diner\n</pre>\n</small>\n</div>\n<div class=\"quiz-option\" style=\"position:absolute; left: 470px; top: 50px;\">\n<input dir=\"auto\" class=\"quiz-input\" type=\"checkbox\" name=\"answer[70d70be689d73e08687496a6d12b2b0d][]\" id=\"gensym_52be3ad71a1f5\" value=\"d5c5ec0ff53ebf35958c5ba02c30ce24\"><label for=\"gensym_52be3ad71a1f5\" style=\"cursor:pointer;\">Georgie Porgie</label>\n</div>\n<div class=\"quiz-option\" style=\"position:absolute; left: 470px; top: 140px; /* width:370px; */ /* height:80px; */ \">\n<input dir=\"auto\" class=\"quiz-input\" type=\"checkbox\" name=\"answer[70d70be689d73e08687496a6d12b2b0d][]\" id=\"gensym_52be3ad71a71f\" value=\"cfc6db592e488051decbce17bd7b98b8\"><label for=\"gensym_52be3ad71a71f\" style=\"cursor:pointer;\">Silver Spoon</label>\n</div>\n<div class=\"quiz-option\" style=\"position:absolute; left: 470px; top: 230px; /* width:370px; */ /* height:80px; */ \">\n<input dir=\"auto\" class=\"quiz-input\" type=\"checkbox\" name=\"answer[70d70be689d73e08687496a6d12b2b0d][]\" id=\"gensym_52be3ad71ac52\" value=\"b387d47429de02592f973814b393e51d\"><label for=\"gensym_52be3ad71ac52\" style=\"cursor:pointer;\">Coffee Cafe</label>\n</div>",
+                        "background": "color",
+                        "background_src": "white",
+                        "post_answer_url": "https:\/\/class.coursera.org\/programming2-001\/quiz\/video_quiz_attempt?method=post_question_answer&quiz_id=20&preview=0&question_id=70d70be689d73e08687496a6d12b2b0d"
+                    }, {
+                        "time": "180",
+                        "question_id": "9326a7b17e15cfc69f8e46f9357bf6c5",
+                        "html": "<div dir=\"auto\" class=\"quiz-question-text\" style=\"position:absolute;\">\n<small>\n<pre>def is_palindrome_v3(s):\n    i = 0\n    j = len(s) - 1\n    while i &lt; j and s[i] == s[j]:\n        i = i + 1\n        j = j - 1\n\n    return j &lt;= i\n</pre>\n</small>\nIf <code>s</code> refers to a single-character string such as 'x', when the return statement is reached, which of the following expressions evaluates to <code>True</code>?</div>\n<div class=\"quiz-option\" style=\"position:absolute; left:40px; top: 250px; /* width:370px; */ /* height:80px; */ \">\n<input dir=\"auto\" class=\"quiz-input\" type=\"radio\" name=\"answer[9326a7b17e15cfc69f8e46f9357bf6c5][]\" id=\"gensym_52bed85054bc8\" value=\"ad32510af7c53e2fa6cce4d764c09800\"><label for=\"gensym_52bed85054bc8\" style=\"cursor:pointer;\"><code>i == 0 and j == -1</code> </label>\n</div>\n<div class=\"quiz-option\" style=\"position:absolute; left:40px; top: 320px; /* width:370px; */ /* height:80px; */ \">\n<input dir=\"auto\" class=\"quiz-input\" type=\"radio\" name=\"answer[9326a7b17e15cfc69f8e46f9357bf6c5][]\" id=\"gensym_52bed85055221\" value=\"8d53ca2fa487cfbb4479ce2bf7f2e295\"><label for=\"gensym_52bed85055221\" style=\"cursor:pointer;\"><code>i == 0 and j == 0</code> </label>\n</div>\n<div class=\"quiz-option\" style=\"position:absolute; left:430px; top: 250px; /* width:380px; */ /* height:80px; */ \">\n<input dir=\"auto\" class=\"quiz-input\" type=\"radio\" name=\"answer[9326a7b17e15cfc69f8e46f9357bf6c5][]\" id=\"gensym_52bed850558b5\" value=\"94023160fe66f684740c119a18e39a9e\"><label for=\"gensym_52bed850558b5\" style=\"cursor:pointer;\"><code>i == 0 and j == 1</code> </label>\n</div>\n<div class=\"quiz-option\" style=\"position:absolute; left:430px; top: 320px; /* width:380px; */ /* height:80px; */ \">\n<input dir=\"auto\" class=\"quiz-input\" type=\"radio\" name=\"answer[9326a7b17e15cfc69f8e46f9357bf6c5][]\" id=\"gensym_52bed85055eba\" value=\"ff8f062afa22c18eb5c2d4c557bcd44b\"><label for=\"gensym_52bed85055eba\" style=\"cursor:pointer;\"><code>i == 1 and j == 0</code> </label>\n</div>",
+                        "background": "color",
+                        "background_src": "white",
+                        "post_answer_url": "https:\/\/class.coursera.org\/programming2-001\/quiz\/video_quiz_attempt?method=post_question_answer&quiz_id=18&preview=0&question_id=9326a7b17e15cfc69f8e46f9357bf6c5"
+                    }]
+                }
+            }
+        };
     }]);
 
 angular.module("easylearncode.contest_result").controller('ContestResultCtrl', ['$scope', '$http', 'csrf_token', function ($scope, $http, csrf_token) {

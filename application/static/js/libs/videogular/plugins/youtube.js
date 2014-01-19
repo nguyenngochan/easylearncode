@@ -22,7 +22,7 @@ angular.module("info.vietnamcode.nampnq.videogular.plugins.youtube", [])
                 return {
                     restrict: "E",
                     require: "^videogular",
-                    templateUrl: "views/videogular/plugins/youtube/youtube.html",
+                    templateUrl: "/application/js/views/videogular/plugins/youtube/youtube.html",
                     scope: {},
                     link: function(scope, elem, attr, API) {
                         var result = {

@@ -13,7 +13,7 @@ angular.module("com.2fdevs.videogular.plugins.overlayplay", [])
 					$scope.playIcon = $.parseHTML($scope.vgPlayIcon)[0].data;
 					$scope.currentIcon = $scope.playIcon;
 				},
-				templateUrl: "views/videogular/plugins/overlay-play/overlay-play.html",
+				templateUrl: "/application/js/views/videogular/plugins/overlay-play/overlay-play.html",
 				link: function(scope, elem, attr, API) {
 					function onComplete(target, params) {
 						scope.currentIcon = scope.playIcon;

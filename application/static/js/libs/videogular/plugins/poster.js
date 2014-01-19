@@ -10,7 +10,7 @@ angular.module("com.2fdevs.videogular.plugins.poster", [])
 					vgUrl: "=",
 					vgStretch: "="
 				},
-				templateUrl: "views/videogular/plugins/poster/poster.html",
+				templateUrl: "/application/js/views/videogular/plugins/poster/poster.html",
 				link: function(scope, elem, attr, API) {
 					var img = elem.find("img");
 					var width = 0;
